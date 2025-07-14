@@ -1,0 +1,33 @@
+.navbar {
+background-color: #FFFFFF;
+color: #000000;
+display: flex;
+  justify-content: space-between;
+  padding-inline:100px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link{
+    color: #000000;
+    margin-left:20px;
+}
+
+.navbar-link.active {
+  color: #8367D8;
+  margin-left:20px
+}
+
+.logo {
+    height: 48px;
+}
+
+.search-icon {
+    height: 48px;
+
+}
