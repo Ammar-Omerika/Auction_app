@@ -1,0 +1,45 @@
+.titlebar {
+  background-color: #252525;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  padding-inline: 100px;
+  font-family: Lato, sans-serif;
+  font-size:16px;
+}
+
+.media-link {
+  margin: 5px;
+  padding: 0px;
+}
+
+.media-link img {
+    height: 24px;
+    width: 24px;
+}
+
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+
+
+.title-link {
+    padding-left: 10px;
+    
+}
+
+.titlebar-right span{
+    padding-left: 10px;
+}
+
+.the-or {
+    color:#9B9B9B;
+}
+
+button {
+    margin-left: 10px;
+}
