@@ -1,0 +1,60 @@
+.item-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.item-left,
+.item-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-left{
+    padding-top:30px;
+    align-items: center; 
+
+}
+
+.main-image {
+  width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.thumbnail-grid {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap; 
+}
+
+
+.thumbnail-image {
+  width: 35px;
+  height: auto;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.bid-box {
+  border: 1px solid #ccc; 
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+h3,
+.item-right span,
+.item-right p strong:first-of-type {
+  color: #8367D8; 
+}
+
+.item-right p strong:first-of-type {
+  display: inline-block;
+  margin-top: 10px;
+}

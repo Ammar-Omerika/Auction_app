@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
+import Navbar from "../components/Navbar";
 
 function Profile() {
   const [profile, setProfile] = useState(null);
@@ -10,18 +12,12 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:8080/api/v1/user/profile", {
+        const res = await axios.get("http://localhost:8080/api/v1/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch profile");
-        }
-
-        const data = await res.json();
-        setProfile(data);
+        setProfile(res.data);
       } catch (err) {
         console.error("Profile fetch error:", err);
         setError("Could not load profile");
@@ -46,6 +42,8 @@ function Profile() {
   }
 
   return (
+    <>
+    <Navbar/>
     <div>
       <h1>Welcome, {profile.firstname} {profile.lastname}!</h1>
       <p>Email: {profile.email}</p>
@@ -64,6 +62,7 @@ function Profile() {
       <p>This is the profile page</p>
       <p>This is the profile page</p>
     </div>
+    </>
   );
 }
 

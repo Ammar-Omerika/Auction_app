@@ -15,20 +15,42 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (form, isRegister = false) => {
-    const endpoint = isRegister
-      ? "http://localhost:8080/api/v1/auth/register"
-      : "http://localhost:8080/api/v1/auth/authenticate";
-
+  const login = async (form) => {
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch("http://localhost:8080/api/v1/auth/authenticate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
       if (!res.ok) {
-        throw new Error("Login/Register failed");
+        throw new Error("Loginfailed");
+      }
+
+      const data = await res.json();
+      localStorage.setItem("token", data.token);
+
+      const payload = JSON.parse(atob(data.token.split('.')[1]));
+      const email = payload.sub;
+
+      localStorage.setItem("username", email);
+      setUsername(email);
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const register = async (form) => {
+    try {
+      const res = await fetch("http://localhost:8080/api/v1/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        throw new Error("Register failed");
       }
 
       const data = await res.json();
@@ -53,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, username, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, username, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

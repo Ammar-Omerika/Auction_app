@@ -125,3 +125,14 @@ form button {
   margin-top:20px;
   color:#8367D8;
 }
+
+.input-error {
+  border: 2px solid red;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}

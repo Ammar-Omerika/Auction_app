@@ -1,38 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 import './titlebar.css';
 
 function Titlebar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("token");
+ useEffect(() => {
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:8080/api/v1/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const res = await axios.get("http://localhost:8080/api/v1/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (!res.ok) {
-          throw new Error("Error with fetching profile!");
-        }
-
-        const data = await res.json();
-        setProfile(data);
-      } catch (err) {
-        console.error("Profile fetch error:", err);
-      }
-    };
-
-    if (isLoggedIn) {
-      fetchProfile();
+      setProfile(res.data);
+    } catch (err) {
+      console.error("Profile fetch error:", err);
     }
-  }, [isLoggedIn]);
+  };
+
+  if (isLoggedIn) {
+    fetchProfile();
+  }
+}, [isLoggedIn]);
 
   return (
     <nav className="titlebar">

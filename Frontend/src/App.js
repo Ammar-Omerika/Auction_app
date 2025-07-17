@@ -11,13 +11,14 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Footer from "./components/Footer";
 import Shop from "./pages/Shop"; 
+import ItemPage from "./pages/ItemPage";
+import ArticleSell from "./pages/ArticleSell";  
 
 
 function App() {
   return (
     <Router>
       <Titlebar/>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -26,6 +27,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/item/:id" element={<ItemPage />} />
+        <Route path="/sell-item" element={<ArticleSell/>}/>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
