@@ -1,0 +1,79 @@
+.sell-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #D8D8D8;
+  border-radius: 8px;
+  background: #fdfdfd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sell-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+
+input,
+textarea,
+select {
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #8367D8;
+  color: #000000;
+  border: none;
+  
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+
+button[type="button"] {
+  background-color: #D8D8D8;
+  color: #000000;
+}
+
+button[type="button"]:hover {
+  background-color: #9B9B9B;
+}
+
+.preview-image {
+  width: 150px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.redirecting-msg {
+  color: #8367D8;
+  text-align: center;
+  margin-bottom: 15px;
+}

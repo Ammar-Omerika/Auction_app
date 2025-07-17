@@ -1,5 +1,7 @@
 package com.omerika.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,8 +33,8 @@ public class Article {
             foreignKey = @ForeignKey(name = "fk_article_category"))
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "subcategory_id", nullable = false,
+    @ManyToOne (optional = true)
+    @JoinColumn(name = "subcategory_id", nullable = true,
             foreignKey = @ForeignKey(name = "fk_article_subcategory"))
     private Subcategory subcategory;
 

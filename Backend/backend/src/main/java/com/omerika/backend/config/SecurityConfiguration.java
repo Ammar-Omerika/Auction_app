@@ -28,9 +28,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/v1/articles").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/articles", "/api/v1/articles/**", "/api/v1/article-images/**").permitAll()
                         .requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/articles").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/articles", "/api/v1/article-images").authenticated()
                         .requestMatchers("/api/v1/articles/my").authenticated()
                         .anyRequest().authenticated()
                 )

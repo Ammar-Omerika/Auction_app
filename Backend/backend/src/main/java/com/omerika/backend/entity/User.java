@@ -1,5 +1,7 @@
 package com.omerika.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,12 +50,16 @@ public class User implements UserDetails {
 
     //Relationships
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JsonManagedReference
     private List<Article> articles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Wishlist> wishlists;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Bid> bids;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -66,6 +72,7 @@ public class User implements UserDetails {
     private List<Rating> ratingsGiven;
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Rating> ratingsReceived;
 
 

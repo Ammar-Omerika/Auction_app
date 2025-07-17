@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "../api/axios";
 
 export const AuthContext = createContext();
 
@@ -15,23 +16,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (form, isRegister = false) => {
-    const endpoint = isRegister
-      ? "http://localhost:8080/api/v1/auth/register"
-      : "http://localhost:8080/api/v1/auth/authenticate";
-
+  const login = async (form) => {
     try {
-      const res = await fetch(endpoint, {
-        method: "POST",
+      const res = await axios.post("/auth/authenticate", form, {
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
       });
 
-      if (!res.ok) {
-        throw new Error("Login/Register failed");
-      }
-
-      const data = await res.json();
+      const data = res.data;
       localStorage.setItem("token", data.token);
 
       const payload = JSON.parse(atob(data.token.split('.')[1]));
@@ -41,7 +32,29 @@ export const AuthProvider = ({ children }) => {
       setUsername(email);
       setIsLoggedIn(true);
     } catch (err) {
-      console.error(err.message);
+      console.error("Login failed:", err.response?.data || err.message);
+      throw err; 
+    }
+  };
+
+  const register = async (form) => {
+    try {
+      const res = await axios.post("/auth/register", form, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = res.data;
+      localStorage.setItem("token", data.token);
+
+      const payload = JSON.parse(atob(data.token.split('.')[1]));
+      const email = payload.sub;
+
+      localStorage.setItem("username", email);
+      setUsername(email);
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.error("Register failed:", err.response?.data || err.message);
+      throw err;
     }
   };
 
@@ -53,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, username, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, username, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
