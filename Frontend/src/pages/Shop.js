@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import "./Shop.css";
 import Navbar from "../components/Navbar";
 
@@ -26,7 +26,7 @@ function Shop() {
   const [viewMode, setViewMode] = useState("grid");
 
   const fetchArticles = async (page, isLoadMore = false) => {
-    let url = `http://localhost:8080/api/v1/articles?page=${page}&size=8&sortBy=${sortBy}&direction=${direction}`;
+    let url = `/articles?page=${page}&size=8&sortBy=${sortBy}&direction=${direction}`;
     if (selectedCategory) {
       url += `&categoryId=${selectedCategory}`;
     }
@@ -44,7 +44,7 @@ function Shop() {
       data.content.forEach(async (article) => {
         try {
           const res = await axios.get(
-            `http://localhost:8080/api/v1/article-images/${article.id}`
+            `/article-images/${article.id}`
           );
           setImagesMap((prev) => ({ ...prev, [article.id]: res.data }));
         } catch (err) {

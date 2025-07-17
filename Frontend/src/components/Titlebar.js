@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios';
+import axios from '../api/axios';
 import './titlebar.css';
 
 function Titlebar() {
@@ -13,7 +13,7 @@ function Titlebar() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get("http://localhost:8080/api/v1/user/profile", {
+      const res = await axios.get("/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

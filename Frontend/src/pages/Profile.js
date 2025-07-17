@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import axios from "../api/axios"; 
 import Navbar from "../components/Navbar";
 
 function Profile() {
@@ -12,7 +12,7 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8080/api/v1/user/profile", {
+        const res = await axios.get("/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios"; 
+import axios from "../api/axios"; 
 import "./ItemPage.css";
 import Navbar from "../components/Navbar";
 
@@ -12,10 +12,10 @@ function ItemPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const articleRes = await axios.get(`http://localhost:8080/api/v1/articles/${id}`);
+        const articleRes = await axios.get(`/articles/${id}`);
         setArticle(articleRes.data);
 
-        const imagesRes = await axios.get(`http://localhost:8080/api/v1/article-images/${id}`);
+        const imagesRes = await axios.get(`/article-images/${id}`);
         setImages(imagesRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);

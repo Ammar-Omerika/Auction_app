@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "../api/axios";
 
 export const AuthContext = createContext();
 
@@ -17,17 +18,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (form) => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/auth/authenticate", {
-        method: "POST",
+      const res = await axios.post("/auth/authenticate", form, {
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
       });
 
-      if (!res.ok) {
-        throw new Error("Loginfailed");
-      }
-
-      const data = await res.json();
+      const data = res.data;
       localStorage.setItem("token", data.token);
 
       const payload = JSON.parse(atob(data.token.split('.')[1]));
@@ -37,23 +32,18 @@ export const AuthProvider = ({ children }) => {
       setUsername(email);
       setIsLoggedIn(true);
     } catch (err) {
-      console.error(err.message);
+      console.error("Login failed:", err.response?.data || err.message);
+      throw err; 
     }
   };
 
   const register = async (form) => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/auth/register", {
-        method: "POST",
+      const res = await axios.post("/auth/register", form, {
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
       });
 
-      if (!res.ok) {
-        throw new Error("Register failed");
-      }
-
-      const data = await res.json();
+      const data = res.data;
       localStorage.setItem("token", data.token);
 
       const payload = JSON.parse(atob(data.token.split('.')[1]));
@@ -63,7 +53,8 @@ export const AuthProvider = ({ children }) => {
       setUsername(email);
       setIsLoggedIn(true);
     } catch (err) {
-      console.error(err.message);
+      console.error("Register failed:", err.response?.data || err.message);
+      throw err;
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import Navbar from "../components/Navbar";
 import "./articleSell.css"; 
 
@@ -45,7 +45,7 @@ function ArticleSell() {
 
     const formData = new FormData();
     formData.append("image", file);
-    const apiKey = "";    //Put the API key in here
+    const apiKey = "0bc8256dd0232dfdb22d1a6ad0d37105";    //Put the API key in here
 
     try {
       const res = await axios.post(
@@ -82,7 +82,7 @@ function ArticleSell() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/articles",
+        "/articles",
         payload,
         {
           headers: {
@@ -103,7 +103,7 @@ function ArticleSell() {
 
         try {
           await axios.post(
-            "http://localhost:8080/api/v1/article-images",
+            "/article-images",
             imagePayload,
             {
               headers: {
